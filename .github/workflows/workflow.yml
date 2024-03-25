@@ -62,7 +62,7 @@ jobs:
             additionalArguments: ${{env.ADDITIONAL_ARG}}
   deploy:
     runs-on: ubuntu-latest
-    environment: ${{env.ENVIRONMENT_TYPE}}
+    environment: Website
     needs: [lint, validate,preview]
     steps:
     - uses: actions/checkout@v3
