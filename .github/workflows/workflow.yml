@@ -59,7 +59,7 @@ jobs:
             template: ${{env.TEMPLATE}}
             parameters: >
               environmentType = ${{ env.ENVIRONMENT_TYPE }}
-            additionalArguments: ${{env.ADDITIONAL_ARG}}
+            additionalArguments: --what-if
   deploy:
     runs-on: ubuntu-latest
     environment: Website
