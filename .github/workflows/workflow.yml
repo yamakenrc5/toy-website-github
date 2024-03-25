@@ -58,7 +58,7 @@ jobs:
             resourceGroupName: ${{ env.AZURE_RESOURCEGROUP_NAME }}
             template: ${{env.TEMPLATE}}
             parameters: >
-              environmentType = ${{ env.ENVIRONMENT_TYPE }}
+              environmentType=${{ env.ENVIRONMENT_TYPE }}
             additionalArguments: --what-if
   deploy:
     runs-on: ubuntu-latest
