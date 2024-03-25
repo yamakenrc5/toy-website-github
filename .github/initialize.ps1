@@ -82,3 +82,8 @@ $azureContext = Get-AzContext
 Write-Host "AZURE_CLIENT_ID: $($applicationRegistration.AppId)"
 Write-Host "AZURE_TENANT_ID: $($azureContext.Tenant.Id)"
 Write-Host "AZURE_SUBSCRIPTION_ID: $($azureContext.Subscription.Id)"
+
+# Still federated identity is not working, updating the existing permission sets:
+az ad sp create-for-rbac --name $rgset.Name --role $RoleDefinitionName `
+                            --scopes /subscriptions/$($azureContext.Subscription.Id)/resourceGroups/$($rgset.Name) `
+                            --sdk-auth
