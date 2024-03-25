@@ -33,7 +33,7 @@ New-AzADAppFederatedCredential @appset
 
 $rgset = @{
     Name = 'ToyWebsite'
-    Location = 'westus3'
+    Location = 'westus'
 }
 $RoleDefinitionName = 'Contributor'
 
