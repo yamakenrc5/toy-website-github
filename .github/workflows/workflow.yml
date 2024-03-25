@@ -96,3 +96,10 @@ jobs:
           -CI
       name: Run smoke tests
       shell: pwsh
+  rollback: 
+    runs-on: ubuntu-latest
+    needs: smoke-test
+    if: ${{ always() && needs.smoke-test.result == 'failure' }}
+    steps:
+    - run: |
+        echo "Performing rollback steps..."
