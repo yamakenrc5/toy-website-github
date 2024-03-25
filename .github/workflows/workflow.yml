@@ -13,7 +13,7 @@ permissions:
 env:
   AZURE_RESOURCEGROUP_NAME: ToyWebsite
   ENVIRONMENT_TYPE: Test
-  ENVIRONMENT_NEW: Website
+  # ENVIRONMENT_NEW: Website
   TEMPLATE: deploy/main.bicep
   DEPLOYMENT_Mode: Validate
   ADDITIONAL_ARG: --what-if
