@@ -48,7 +48,7 @@ jobs:
     - uses: azure/login@v1
       name: Sign in to Azure
       with:
-        creds: ${{ secrets.AZURE_UNATTENDED}}
+        creds: ${{ secrets.AZURE_UNATTENDED }}
     - uses: azure/arm-deploy@v1
       name: Deploy website
       with:
