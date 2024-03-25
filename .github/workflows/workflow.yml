@@ -64,7 +64,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     environment: Website
-    needs: [lint, validate,preview]
+    needs: preview
     outputs:
       appServiceAppHostName: ${{ steps.deploy.outputs.appServiceAppHostName }}  
     steps:
