@@ -15,8 +15,9 @@ env:
   ENVIRONMENT_TYPE: Test
   ENVIRONMENT_NEW: Website
   TEMPLATE: deploy/main.bicep
-  DEPLOYMENT_Mode:
+  DEPLOYMENT_Mode: Validate
   ADDITIONAL_ARG: --what-if
+
 
 jobs:
   lint:
@@ -41,7 +42,7 @@ jobs:
         resourceGroupName: ${{ env.AZURE_RESOURCEGROUP_NAME }}
         template: ${{env.TEMPLATE}}
         parameters: environmentType=${{ env.ENVIRONMENT_TYPE }}
-        deploymentMode: Validate
+        deploymentMode: ${{env.DEPLOYMENT_Mode}}
   preview:
         runs-on: ubuntu-latest
         needs: [lint, validate]
@@ -59,7 +60,7 @@ jobs:
             template: ${{env.TEMPLATE}}
             parameters: >
               environmentType=${{ env.ENVIRONMENT_TYPE }}
-            additionalArguments: --what-if
+            additionalArguments:  ${{env.ADDITIONAL_ARG}}  #--what-if
   deploy:
     runs-on: ubuntu-latest
     environment: Website
