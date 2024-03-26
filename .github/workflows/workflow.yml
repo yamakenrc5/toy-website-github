@@ -6,6 +6,7 @@ on:
     branches:
       - main
   workflow_dispatch:
+  workflow_call:
 permissions:
   id-token: write
   contents: read
@@ -13,30 +14,32 @@ permissions:
 env:
   AZURE_RESOURCEGROUP_NAME: ToyWebsite
   ENVIRONMENT_TYPE: Test
-  # ENVIRONMENT_NEW: Website
+  # ENVIRONMENT_NEW: Website; this was not accepted.
   TEMPLATE: deploy/main.bicep
   DEPLOYMENT_Mode: Validate
   ADDITIONAL_ARG: --what-if
-
-
+  NAME1: Run Bicep linter
+  NAME2: Sign in to Azure
+  NAME3: Run preflight validation
+  NAME4: Run what-if
+  NAME5: Deploy website
 jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    - name: Run Bicep linter
+    - name: ${{env.NAME1}}
       run: az bicep build --file ${{env.TEMPLATE}}
-
   validate:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
     - uses: azure/login@v1
-      name: Sign in to Azure
+      name: ${{env.NAME2}}
       with:
         creds: ${{ secrets.AZURE_UNATTENDED }}
     - uses: azure/arm-deploy@v1
-      name: Run preflight validation
+      name: ${{env.NAME3}}
       with:
         deploymentName: ${{ github.run_number }}
         resourceGroupName: ${{ env.AZURE_RESOURCEGROUP_NAME }}
@@ -49,11 +52,11 @@ jobs:
         steps:
         - uses: actions/checkout@v3
         - uses: azure/login@v1
-          name: Sign in to Azure
+          name: ${{env.NAME2}}
           with:
             creds: ${{ secrets.AZURE_UNATTENDED }}
         - uses: azure/arm-deploy@v1
-          name: Run what-if
+          name: ${{env.NAME4}}
           with:
             failOnStdErr: false
             resourceGroupName: ${{ env.AZURE_RESOURCEGROUP_NAME }}
@@ -70,12 +73,12 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - uses: azure/login@v1
-      name: Sign in to Azure
+      name: ${{env.NAME2}}
       with:
         creds: ${{ secrets.AZURE_UNATTENDED }}
     - uses: azure/arm-deploy@v1
       id: deploy
-      name: Deploy website
+      name: ${{env.NAME5}}
       with:
         failOnStdErr: false
         deploymentName: ${{ github.run_number }}
